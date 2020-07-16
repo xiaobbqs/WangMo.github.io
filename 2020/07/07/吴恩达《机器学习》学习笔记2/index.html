@@ -22,7 +22,7 @@
     <meta name="description" content="">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>“吴恩达《机器学习》学习笔记1 · XSH&#39;s BLOG</title>
+    <title>吴恩达《机器学习》学习笔记2 · XSH&#39;s BLOG</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -217,7 +217,7 @@
                 <a href="/" >XSH&#39;s BLOG.</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">“吴恩达《机器学习》学习笔记1</a>
+                <a href="#" class="post-name">吴恩达《机器学习》学习笔记2</a>
             </div>
     </div>
     
@@ -247,7 +247,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            “吴恩达《机器学习》学习笔记1
+            吴恩达《机器学习》学习笔记2
             <!-- 404 -->
             
         </h1>
@@ -272,12 +272,12 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>Word count: <span class="post-count word-count">827</span>Reading time: <span class="post-count reading-time">3 min</span></span>
+                        <span>Word count: <span class="post-count word-count">1.7k</span>Reading time: <span class="post-count reading-time">6 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
                     <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                    <span class="post-intro-time">2020/07/05</span>
+                    <span class="post-intro-time">2020/07/07</span>
                     
                     <span id="busuanzi_container_page_pv" class="busuanzi-pv">
                         <span class="iconfont-archer">&#xe602;</span>
@@ -401,57 +401,87 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h3 id="什么是机器学习"><a href="#什么是机器学习" class="headerlink" title="什么是机器学习"></a>什么是机器学习</h3><ol>
-<li><p>机器学习：在没有明确设置的情况下，使计算机具有学习能力的研究领域（Arthur Samuel，定义较旧）；计算机从经验E中学习，解决某一任务T，进行某一性能度量P。通过P测定在T上的表现因经验E而提高（Tom Mitchell，定义较新）</p>
+        <h3 id="梯度下降（Gradient-descent）"><a href="#梯度下降（Gradient-descent）" class="headerlink" title="梯度下降（Gradient descent）"></a>梯度下降（Gradient descent）</h3><ol>
+<li><p>梯度下降不仅用在线性回归，还被广泛用于机器学习的众多领域</p>
 </li>
-<li><p>监督学习（Supervised learning）：我们教计算机做某件事情； 无监督学习（Unsupervised ~）：我们让计算机自己学习。  （最常用的两类学习算法）</p>
+<li><p>梯度下降思路：假定代价函数为J(a,b)，开始时随意给定a和b的初始值（通常均设为0），然后不断地一点点改变a和b的值，使得J(a,b)不断变小，直到找到最小值或者局部最小值。就像在一座山上想要下山，环顾四周寻找下降最快的方向迈出一小步，不断重复这一过程，直到找到局部最低点。</p>
 </li>
-<li><p>其它名词：reinforcement learning（强化学习）；recommender systems（推荐系统）</p>
+<li><p>起始点不同，下降得到的局部最低点也可能不同。</p>
 </li>
-</ol>
-<h3 id="Supervised-learning（监督学习）"><a href="#Supervised-learning（监督学习）" class="headerlink" title="Supervised learning（监督学习）"></a>Supervised learning（监督学习）</h3><ol>
-<li>例子1：预测房价（用不同函数拟合数据）</li>
-<li>监督学习是指我们给算法一个数据集，其中包含了正确答案（每一个数据），算法的目的是给出更多的正确答案。（回归问题，预测连续的数值输出）</li>
-<li>例子2：肿瘤大小和肿瘤是否恶性的关系（用0、1表示是否恶性）（分类问题，预测离散的数值输出。可能有多个特征，多个属性）</li>
-<li>在监督学习中，对于数据集中的每个样本，我们想要算法预测并得出正确答案。</li>
-</ol>
-<h3 id="Unsupervised-learning（无监督学习）"><a href="#Unsupervised-learning（无监督学习）" class="headerlink" title="Unsupervised learning（无监督学习）"></a>Unsupervised learning（无监督学习）</h3><ol>
-<li><p>监督学习中，每一个数据集样本的正确性都被告知；而无监督学习中，数据集的数据没有任何标签或者都具有相同的标签。（不知道拿数据集做什么，不知道每个数据点究竟是什么）</p>
-</li>
-<li><p>聚类算法（clustering algorithm；案例：Google news，搜索news，然后自动得将他们分簇）</p>
-</li>
-<li><p>聚类算法其他案例：机群管理；社交网络分析；市场划分；天文数据分析</p>
-</li>
-<li><p>鸡尾酒会问题；鸡尾酒会算法（分离声音）</p>
-</li>
-<li><p>鸡尾酒算法公式：（svd即singular value decomposition奇异值分解）（？？？？？）<br>$$<br>[W,s,v]=svd((repmat(sum(x.^<em>x,1),size(x,1),1).^</em>x)^*x’)<br>$$</p>
+<li><p>梯度下降算法：重复直到收敛（convergence）(for j=0 and j=1)<br>$$<br>\theta_j:=\theta_j-{\alpha\frac{\partial}{\partial\theta_j}J(\theta_0,\theta_1)}<br>$$</p>
 </li>
 </ol>
-<h3 id="模型描述"><a href="#模型描述" class="headerlink" title="模型描述"></a>模型描述</h3><ol>
-<li>训练集（training set） （课程内常用缩写含义：m表示训练集大小  x表示输入变量（特征） y表示输出变量（要预测的目标变量） （x,y）表示一个训练样本）</li>
-<li>training set—&gt;learning algorithm—&gt;输出函数h（hypothesis）—&gt;h根据输入x输出预测y</li>
+<p>（alpha为学习速率learning rate，永远为正数，控制以多大的幅度更新参数theta J，alpha太大会导致无法收敛甚至发散；alpha后面为导数项derivative term；同时同步更新theta0和theta1才是梯度下降算法）</p>
+<ol start="5">
+<li><p>假设代价函数J只有theta1一个参数，取一点的切线，斜率即该点的导数。当我们接近局部最低点时，梯度下降会自动采取更小的幅度，因为接近局部最低时，导数会越来越小，接近0。所以不需要特意减小alpha<br>$$<br>\theta_1=\theta_1-\alpha\frac{\partial}{\partial\theta_1}J(\theta_1)<br>$$</p>
+</li>
+<li><p>梯度下降可以用在任何代价函数J中，而不只是线性回归中的代价函数</p>
+</li>
+<li><p>梯度下降用于最小化平方差代价函数：<br>$$<br>J(\theta_0,\theta_1)=\frac{1}{2m}\sum^{m}<em>{i=1}(h_\theta(x^{(i)})-y^{(i)})^2<br>$$<br>$$<br>当j=0:\frac{\partial}{\partial\theta_0}J(\theta_0,\theta_1)=\frac{1}{m}\sum^{m}</em>{i=1}(h_\theta(x^{(i)})-y^{(i)})<br>$$<br>$$<br>当j=1:\frac{\partial}{\partial\theta_1}J(\theta_0,\theta_1)=\frac{1}{m}\sum^{m}_{i=1}(h_\theta(x^{(i)})-y^{(i)})x^{(i)}<br>$$</p>
+</li>
+<li><p>线性回归的代价函数一般为凸函数（convex function），看起来像一个弓形，没有局部最优解，只有一个全局最优（global aptimum）</p>
+</li>
+<li><p>Batch梯度下降：每一步梯度下降都遍历整个训练集样本（计算m个训练样本的误差总和）</p>
+</li>
+<li><p>相比于正规方程组法（normal equations method），梯度下降适用于更大的数据集</p>
+</li>
 </ol>
-<h3 id="代价函数（cost-function）"><a href="#代价函数（cost-function）" class="headerlink" title="代价函数（cost function）"></a>代价函数（cost function）</h3><ol>
-<li><p>使h(x)和y之间的差距极其小—&gt;使他们差的平方极其小—&gt;求<br>$$<br>min(\frac{1}{2m}\sum^{m}_{i=1}{(h_\theta(x^{(i)})-y^{(i)})^2})<br>$$<br>极其小（m指样本容量,2m的意义是为了开导时消除掉平方的2，计算更方便，对优化结果无影响）</p>
+<h3 id="矩阵和向量（matrices-and-vectors）"><a href="#矩阵和向量（matrices-and-vectors）" class="headerlink" title="矩阵和向量（matrices and vectors）"></a>矩阵和向量（matrices and vectors）</h3><ol>
+<li><p>矩阵是指由数字组成的矩阵阵列，并写在方括号内。（二维数据的另一种说法）（维数dimension=行数*列数）（A，A_i,j）</p>
 </li>
-<li><p>代价函数（平方差函数、有时也称为 平方误差代价函数）。平方误差代价函数对大多数问题，尤其是回归问题，都是一个合理的选择，是解决线性回归问题最常用的手段。</p>
-</li>
-<li><p>线性h(x)=kx+b  代价函数J(k,b)见上，求J(k,b)的值最小时，k、b的取值（J(k,b)函数是一个碗状的3D曲面图）</p>
-</li>
-<li><p>等高线图（contour plots）也称等高图像（contour figures）</p>
-</li>
-<li><p>我们真正想要的是一个高效的算法，一个软件的高效组成部分，来自动寻找代价函数j的最小值对应的k和b</p>
+<li><p>向量是只有一列的矩阵（y，y_i）</p>
 </li>
 </ol>
+<h3 id="加法和标量乘法（Addition-and-scalar-multiplication）"><a href="#加法和标量乘法（Addition-and-scalar-multiplication）" class="headerlink" title="加法和标量乘法（Addition and scalar multiplication）"></a>加法和标量乘法（Addition and scalar multiplication）</h3><h3 id="矩阵向量乘法（Matrix-vector-multiplication）"><a href="#矩阵向量乘法（Matrix-vector-multiplication）" class="headerlink" title="矩阵向量乘法（Matrix-vector multiplication）"></a>矩阵向量乘法（Matrix-vector multiplication）</h3><ol>
+<li>预测多间房子的价格可以转换为矩阵*向量的方式，简化代码，提高计算效率</li>
+</ol>
+<h3 id="矩阵乘法（Matrix-matrix-multiplication）"><a href="#矩阵乘法（Matrix-matrix-multiplication）" class="headerlink" title="矩阵乘法（Matrix-matrix multiplication）"></a>矩阵乘法（Matrix-matrix multiplication）</h3><ol>
+<li><p>矩阵乘法在在线性回归中用于同时解决参数theta0和theta1的计算问题，而不需要梯度下降算法这样的迭代算法。</p>
+</li>
+<li><p>预测多间房子的价格，且有多个假设函数，使用矩阵*矩阵同时计算每个假设所有房子的预测价格。</p>
+</li>
+</ol>
+<h3 id="矩阵乘法特征（Matrix-multiplication-properties）"><a href="#矩阵乘法特征（Matrix-multiplication-properties）" class="headerlink" title="矩阵乘法特征（Matrix multiplication properties）"></a>矩阵乘法特征（Matrix multiplication properties）</h3><ol>
+<li><p>打包大量运算，使用一次矩阵乘法，提高计算效率（主流编程语言的线性库对矩阵计算有很好的优化和支持）</p>
+</li>
+<li><p>矩阵乘法不服从乘法交换律、服从乘法结合律</p>
+</li>
+<li><p>单位矩阵（Identity Matrix）：nXn矩阵 ，左上到右下的沿对角线上都是1，其余数字为0。通常写作I或者I_(n*n)。A·I_1=I_2·A=A（A为mXn，I_1为nXn，I_2为mXm，两个I的维度不同）</p>
+</li>
+</ol>
+<h3 id="逆和转置（Inverse-and-transpose）"><a href="#逆和转置（Inverse-and-transpose）" class="headerlink" title="逆和转置（Inverse and transpose）"></a>逆和转置（Inverse and transpose）</h3><ol>
+<li>矩阵的逆运算（Matrix inverse）：如果A是一个m X m的矩阵，假设A有逆矩阵<br>$$<br>AA^{-1}=A^{-1}A=I<br>$$</li>
+</ol>
+<p>只有m X m的矩阵（方阵square matrix）有逆矩阵。不存在逆矩阵的矩阵称为奇异矩阵（singular matrix）或者退化矩阵（degenerate matrix）</p>
+<ol start="2">
+<li>转置矩阵（Matrix Transpose）：假设A是一个m X n的矩阵，并设矩阵B等于A的转置，那么B是一个n X m的矩阵（维度与矩阵A相反），且B_ij=A_ji</li>
+</ol>
+<h3 id="多功能（Multiple-features）"><a href="#多功能（Multiple-features）" class="headerlink" title="多功能（Multiple features）"></a>多功能（Multiple features）</h3><ol>
+<li><p>前面提到的房价预测按理仅提供了房屋大小x一个特征，现在考虑多个特征x_1,x_2等等。</p>
+</li>
+<li><p>用n表示特征数量；m表示样本数量；X^(i)来表示第i个训练样本的输入特征值（该输入的所有特征值，是一个n维向量）；x^(i)_j表示第i个输入向量里的第j个特征量。</p>
+</li>
+<li><p>当有n个特征时，假设函数应该变为：<br>$$<br>h_\theta(x)=\theta_0+\theta_1x_1+\theta_2x_2+……+\theta_nx_n<br>$$<br>简化，现将x_0设为0，意味着对于第i个样本，都有一个向量x^(i)，并且x^(i)_0=1（当作是定义了额外的第0个变量，并且它的取值总是1），所以上式可以表示为：<br>$$<br>h_\theta(x)=\left[\begin{matrix} \theta_0 &amp;\theta_1  &amp;\cdots &amp;\theta_n\end{matrix}\right]·\left[\begin{matrix} x_0\ x_1\ \vdots\ x_n\end{matrix}\right]<br>$$<br>这就是多元线性回归（multivariate linear regression），多元即用多个特征量或者变量来预测Y值</p>
+</li>
+</ol>
+<h3 id="多元梯度下降法（Gradient-descent-for-multiple-variables）"><a href="#多元梯度下降法（Gradient-descent-for-multiple-variables）" class="headerlink" title="多元梯度下降法（Gradient descent for multiple variables）"></a>多元梯度下降法（Gradient descent for multiple variables）</h3><ol>
+<li>多元线性回归的代价函数为：<br>$$<br>J(\theta_0,\theta_1,\cdots,\theta_n)=J(\theta)=\frac{1}{2m}\sum^{m}<em>{i=1}(h</em>{\theta}(x^{(i)})-y^{(i)})^2<br>$$<br>不要把J看作是theta_0到theta_n这n+1个变量的函数，而看作是n+1维向量theta的函数<br>梯度下降（j的取值从0到n）：<br>$$<br>\theta_j:=\theta_j-\alpha\frac{\partial}{\part\theta_j}J(\theta_0,\cdots,\theta_n)<br>$$<br>$$<br>\theta_j:=\theta_j-\alpha\frac{1}{m}\sum^{m}_{i=1}(h_\theta(x^{(i)})-y^{(i)})x^{(i)}_j<br>$$</li>
+</ol>
+<h3 id="多元梯度下降法演练1：特征缩放（Feature-Scaling）"><a href="#多元梯度下降法演练1：特征缩放（Feature-Scaling）" class="headerlink" title="多元梯度下降法演练1：特征缩放（Feature Scaling）"></a>多元梯度下降法演练1：特征缩放（Feature Scaling）</h3><ol>
+<li>如果一个机器学习问题有多个特征，且不同特征的取值处在一个相近的范围内，这样梯度下降法就能更快地收敛。（如果特征值取值范围相差大，收敛需要花更长的时间，且下降时可能会来回波动，路径复杂）</li>
+<li>特征缩放：将特征值的取值范围变得相近，通常将其约束到-1到+1的范围内（只要接近这个范围即可，吴恩达认为-3到+3和-1/3到+1/3就可以接受）</li>
+<li>均值归一化（mean normalization）：如果有一个特征值x_i，就用x_i-mu_i来替换，让你的特征值x_i具有为0的平均值（mu_i是训练集中特征x_1的平均值，s_i为特征值范围、标准差）例如：<br>$$<br>x_i:=\frac{x_i-\mu_i}{s_i}<br>$$</li>
+</ol>
+<p>（取值均为近似这个范围即可，不需要太精确，没有硬性要求，只是为了让梯度下降的更快一点）</p>
 
     </article>
     <!-- license  -->
     
         <div class="license-wrapper">
             <p>Author：<a href="http://xiaobbqs.github.io">XSH</a>
-            <p>原文链接：<a href="http://xiaobbqs.github.io/2020/07/05/%E2%80%9C%E5%90%B4%E6%81%A9%E8%BE%BE%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">http://xiaobbqs.github.io/2020/07/05/%E2%80%9C%E5%90%B4%E6%81%A9%E8%BE%BE%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</a>
-            <p>发表日期：<a href="http://xiaobbqs.github.io/2020/07/05/%E2%80%9C%E5%90%B4%E6%81%A9%E8%BE%BE%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">July 5th 2020, 7:50:54 pm</a>
-            <p>更新日期：<a href="http://xiaobbqs.github.io/2020/07/05/%E2%80%9C%E5%90%B4%E6%81%A9%E8%BE%BE%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">July 6th 2020, 10:10:03 pm</a>
+            <p>原文链接：<a href="http://xiaobbqs.github.io/2020/07/07/%E5%90%B4%E6%81%A9%E8%BE%BE%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/">http://xiaobbqs.github.io/2020/07/07/%E5%90%B4%E6%81%A9%E8%BE%BE%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/</a>
+            <p>发表日期：<a href="http://xiaobbqs.github.io/2020/07/07/%E5%90%B4%E6%81%A9%E8%BE%BE%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/">July 7th 2020, 10:16:12 am</a>
+            <p>更新日期：<a href="http://xiaobbqs.github.io/2020/07/07/%E5%90%B4%E6%81%A9%E8%BE%BE%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/">July 16th 2020, 10:36:33 pm</a>
             <p>版权声明：本文采用<a rel="license noopener" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -459,17 +489,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2020/07/07/%E5%90%B4%E6%81%A9%E8%BE%BE%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/" title= "吴恩达《机器学习》学习笔记2">
-                    <div class="nextTitle">吴恩达《机器学习》学习笔记2</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2020/01/10/hello-world/" title= "Hello World">
-                    <div class="prevTitle">Hello World</div>
+                <a href= "/2020/07/05/%E2%80%9C%E5%90%B4%E6%81%A9%E8%BE%BE%E3%80%8A%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E3%80%8B%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" title= "“吴恩达《机器学习》学习笔记1">
+                    <div class="prevTitle">“吴恩达《机器学习》学习笔记1</div>
                 </a>
             
         </li>
@@ -591,7 +616,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是机器学习"><span class="toc-number">1.</span> <span class="toc-text">什么是机器学习</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Supervised-learning（监督学习）"><span class="toc-number">2.</span> <span class="toc-text">Supervised learning（监督学习）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unsupervised-learning（无监督学习）"><span class="toc-number">3.</span> <span class="toc-text">Unsupervised learning（无监督学习）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模型描述"><span class="toc-number">4.</span> <span class="toc-text">模型描述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代价函数（cost-function）"><span class="toc-number">5.</span> <span class="toc-text">代价函数（cost function）</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#梯度下降（Gradient-descent）"><span class="toc-number">1.</span> <span class="toc-text">梯度下降（Gradient descent）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#矩阵和向量（matrices-and-vectors）"><span class="toc-number">2.</span> <span class="toc-text">矩阵和向量（matrices and vectors）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#加法和标量乘法（Addition-and-scalar-multiplication）"><span class="toc-number">3.</span> <span class="toc-text">加法和标量乘法（Addition and scalar multiplication）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#矩阵向量乘法（Matrix-vector-multiplication）"><span class="toc-number">4.</span> <span class="toc-text">矩阵向量乘法（Matrix-vector multiplication）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#矩阵乘法（Matrix-matrix-multiplication）"><span class="toc-number">5.</span> <span class="toc-text">矩阵乘法（Matrix-matrix multiplication）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#矩阵乘法特征（Matrix-multiplication-properties）"><span class="toc-number">6.</span> <span class="toc-text">矩阵乘法特征（Matrix multiplication properties）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逆和转置（Inverse-and-transpose）"><span class="toc-number">7.</span> <span class="toc-text">逆和转置（Inverse and transpose）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多功能（Multiple-features）"><span class="toc-number">8.</span> <span class="toc-text">多功能（Multiple features）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多元梯度下降法（Gradient-descent-for-multiple-variables）"><span class="toc-number">9.</span> <span class="toc-text">多元梯度下降法（Gradient descent for multiple variables）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#多元梯度下降法演练1：特征缩放（Feature-Scaling）"><span class="toc-number">10.</span> <span class="toc-text">多元梯度下降法演练1：特征缩放（Feature Scaling）</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
